@@ -6,6 +6,7 @@ const LoginForm = ({ registerData, setRegisterData, setIsRegistered, toggleForm 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = async (e) => {
+
     e.preventDefault();
     const data = {
       username: registerData.username,
@@ -15,6 +16,8 @@ const LoginForm = ({ registerData, setRegisterData, setIsRegistered, toggleForm 
     try {
       const response = await axios.post('http://localhost:3000/login', data);
       console.log('User logged in successfully', response.data);
+      window.localStorage.setItem('token', response.data.token);
+      window.localStorage.setItem('username', response.data.username);
       setIsLoggedIn(true);
       setLoginError(false);
     } catch (error) {
@@ -29,7 +32,8 @@ const LoginForm = ({ registerData, setRegisterData, setIsRegistered, toggleForm 
     <div>
       {isLoggedIn ? (
         <div>
-          <h1>Welcome, {registerData.username}!</h1>
+          <h1>Hello, {localStorage.getItem('username')}!</h1>
+
           {/* Display the logged-in content here */}
         </div>
       ) : (
@@ -51,9 +55,17 @@ const LoginForm = ({ registerData, setRegisterData, setIsRegistered, toggleForm 
               value={registerData.password}
               onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
             />
-            <br />
+              <br />
+            {loginError && (
+              <div>
+                <p>Incorrect Password. Please try again or 
+                <button type='button'>
+                  RESET PASSWORD
+                </button></p>
+              </div>
+            )}
             <button type='submit'>LOGIN</button>
-            {loginError && <p>Incorrect Password. Please try again.</p>}
+
             <p>
               Not Registered?{' '}
               <button type='button' onClick={toggleForm}>
