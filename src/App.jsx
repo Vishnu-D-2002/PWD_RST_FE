@@ -1,54 +1,39 @@
-import React, { useState } from 'react'
-import axios from 'axios';
+import React, { useState } from 'react';
+import RegisterForm from './components/RegisterForm';
+import LoginForm from './components/LoginForm';
 
 function App() {
   const [registerData, setRegisterData] = useState({
-    name:'',
-    username:'',
-    password:''
+    name: '',
+    username: '',
+    password: ''
   });
+  const [isRegistered, setIsRegistered] = useState(false);
 
-  const handleRegister = async (e) => {
-    e.preventDefault(); 
-    const data = {
-      name: registerData.name,
-      username: registerData.username,
-      password: registerData.password
-    };
-    await axios.post('http://localhost:3000/user',data)
-    setRegisterData({ name: '', username: '', password: '' });
-    console.log('user created successfully');
-  }
+  const toggleForm = () => {
+    setIsRegistered(!isRegistered);
+  };
 
   return (
     <div>
-      <h1>Register form</h1>
-      <form onSubmit={handleRegister}>
-        <label>Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </label>
-        <input
-          type='text'
-          placeholder='Enter your Name ...'
-          value={registerData.name}
-          onChange={(e) =>setRegisterData({...registerData,name:e.target.value})}
-        /><br />
-        <label>Email  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;</label>
-        <input
-          type='email'
-          placeholder='Enter your Email ...'
-          value={registerData.username}
-          onChange={(e) =>setRegisterData({...registerData,username:e.target.value})}
-        /><br />
-        <label>Password : </label>
-        <input
-          type='password'
-          placeholder='Enter your Password ...'
-          value={registerData.password}
-          onChange={(e) =>setRegisterData({...registerData,password:e.target.value})}
-        /><br />
-        <button type='submit'>REGISTER</button>
-      </form>
+      <h1>Welcome to Our Website</h1>
+      {isRegistered ? (
+        <LoginForm
+          registerData={registerData}
+          setRegisterData={setRegisterData}
+          setIsRegistered={setIsRegistered}
+          toggleForm={toggleForm}
+        />
+      ) : (
+        <RegisterForm
+          registerData={registerData}
+          setRegisterData={setRegisterData}
+          setIsRegistered={setIsRegistered}
+          toggleForm={toggleForm}
+        />
+      )}
     </div>
-  )
+  );
 }
 
 export default App;
