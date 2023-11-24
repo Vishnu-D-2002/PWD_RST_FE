@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
+import './app.css';
 
 function App() {
   const [registerData, setRegisterData] = useState({
