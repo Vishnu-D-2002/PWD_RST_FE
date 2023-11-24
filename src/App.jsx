@@ -12,6 +12,11 @@ function App() {
 
   const toggleForm = () => {
     setIsRegistered(!isRegistered);
+    setRegisterData({
+      name: '',
+      username: '',
+      password: ''
+    });
   };
 
   return (
