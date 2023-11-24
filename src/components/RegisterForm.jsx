@@ -9,7 +9,7 @@ const RegisterForm = ({ registerData, setRegisterData, setIsRegistered, toggleFo
       username: registerData.username,
       password: registerData.password
     };
-    await axios.post('http://localhost:3000/user', data);
+    await axios.post('https://pwd-rst-be.onrender.com/user', data);
     setRegisterData({ name: '', username: '', password: '' });
     setIsRegistered(true);
     console.log('User created successfully');
