@@ -20,7 +20,7 @@ const LoginForm = ({ registerData, setRegisterData, setIsRegistered, toggleForm 
     };
 
     try {
-      const response = await axios.post('https://pwd-rst-be.onrender.com/login', data);
+      const response = await axios.post('https://pwd-rst-mail.onrender.com/login', data);
       console.log('User logged in successfully', response.data);
       window.localStorage.setItem('token', response.data.token);
       window.localStorage.setItem('username', response.data.username);
@@ -39,7 +39,7 @@ const LoginForm = ({ registerData, setRegisterData, setIsRegistered, toggleForm 
       setShowResetEmailInput(true);
     } else {
       try {
-        const response = await axios.post('https://pwd-rst-be.onrender.com/login/reset-password', {
+        const response = await axios.post('https://pwd-rst-mail.onrender.com/login/reset-password', {
           email: resetEmail,
         });
 
@@ -55,7 +55,7 @@ const LoginForm = ({ registerData, setRegisterData, setIsRegistered, toggleForm 
 
   const handlePasswordResetted = async () => {
     try {
-      const response = await axios.post('https://pwd-rst-be.onrender.com/login/complete-reset', {
+      const response = await axios.post('https://pwd-rst-mail.onrender.com/login/complete-reset', {
         email,
         randomString: resetCode,
         newPassword,
