@@ -34,7 +34,7 @@ function ResetPassword() {
       const data = {
           email:mail,
           randomString: otp,
-          newPassword
+          newPassword:newPassword
       }
       console.log(data);
     try {
@@ -101,7 +101,7 @@ function ResetPassword() {
             type="password"
             value={newPassword.newPassword}
             onChange={(e) => {
-              setNewpassword({ password: e.target.value });
+              setNewpassword(e.target.value );
             }}
             required
           />
