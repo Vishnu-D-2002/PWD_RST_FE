@@ -1,58 +1,53 @@
-import React from 'react';
-import axios from 'axios';
+import React from 'react'
+import { Link } from 'react-router-dom';
 
-const RegisterForm = ({ registerData, setRegisterData, setIsRegistered, toggleForm }) => {
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    const data = {
-      name: registerData.name,
-      username: registerData.username,
-      password: registerData.password
-    };
-    await axios.post('https://pwd-rst-mail.onrender.com/user', data);
-    setRegisterData({ name: '', username: '', password: '' });
-    setIsRegistered(true);
-    console.log('User created successfully');
-  };
-
+function UserRegister({handleRegister,registerData,setRegisterData,mgs}) {
   return (
-    <div>
-      <h1>Register form</h1>
-      <form onSubmit={handleRegister}>
-        <label>Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </label>
+    <div className='container'>
+      <form onSubmit={handleRegister} className='inside'>
+        <h2>Register Form:</h2>
+      <div>
+        <label>Email Id:</label><br />
         <input
-          type='text'
-          placeholder='Enter your Name ...'
-          value={registerData.name}
-          onChange={(e) => setRegisterData({ ...registerData, name: e.target.value })}
-          required
-        /><br />
-        <label>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;</label>
-        <input
-          type='email'
-          placeholder='Enter your Email ...'
+          type="email"
           value={registerData.username}
-          onChange={(e) => setRegisterData({ ...registerData, username: e.target.value })}
+          onChange={(e) => {
+            setRegisterData({ ...registerData, username: e.target.value });
+          }}
           required
-        /><br />
-        <label>Password : </label>
+        />
+      </div>
+      <div>
+        <label>Full Name:</label><br />
         <input
-          type='password'
-          placeholder='Enter your Password ...'
-          value={registerData.password}
-          onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
+          type="text"
+          value={registerData.name}
+          onChange={(e) => {
+            setRegisterData({ ...registerData, name: e.target.value });
+          }}
           required
-        /><br />
-        <button type='submit'>REGISTER</button>
-        <p>
-          Already Registered?{' '}
-          <button type='button' onClick={toggleForm}>
-            Login
-          </button>
-        </p>
-      </form>
-    </div>
-  );
-};
-
-export default RegisterForm;
+        />
+      </div>
+      <div>
+        <label>Password:</label><br />
+        <input
+          type="password"
+          value={registerData.password}
+          onChange={(e) => {
+            setRegisterData({ ...registerData, password: e.target.value });
+          }}
+          required
+        />
+      </div>
+      <button type="submit">
+        REGISTER
+        </button>
+        <div>
+         <h1>{mgs}</h1> 
+        </div>
+        <div><Link to='/'>Login</Link></div>
+    </form>
+  </div>
+)
+}
+export default UserRegister
